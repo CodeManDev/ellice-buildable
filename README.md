@@ -1,3 +1,6 @@
+
+
+<img width="1672" height="941" alt="e" src="https://github.com/user-attachments/assets/e615d317-7736-4a3c-bc90-270b4eb52b57" />
 💀💀💀 **Ellice ist kein Client, Ellice ist ein `Ctrl+C`-Projekt mit JAR-Extension** 😭🙏
 
 Bro hat wirklich **Paste → Compile → Pack → Ship** gedrückt und sitzt danach da wie:
