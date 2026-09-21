@@ -1,0 +1,206 @@
+{
+  "releases": [
+    {
+      "version": "1.3.0",
+      "date": "2026-09-20",
+      "title": "Richer terrain map and community configs",
+      "highlights": [
+        "3D minimap with player models, sky, atmosphere and shadows.",
+        "Browse, share, install and rate community configs.",
+        "New AutoEat module with hotbar refill and health-aware eating.",
+        "Combat, movement and Backtrack handoff fixes."
+      ],
+      "entries": [
+        {
+          "type": "improved",
+          "text": "Terrain Map and minimap now render loaded players with skins and model poses, plus sky, daylight, atmospheric distance and terrain/player shadows."
+        },
+        {
+          "type": "fixed",
+          "text": "Corrected ground shadow filtering to prevent dark self-shadow stripes while preserving cast shadows."
+        },
+        {
+          "type": "added",
+          "text": "The Config Manager has a Community tab for searching, sorting, previewing, installing, sharing, voting on and reporting configs without an account."
+        },
+        {
+          "type": "improved",
+          "text": "Community sharing strips keybinds before upload; installing a shared config preserves personal keybinds."
+        },
+        {
+          "type": "added",
+          "text": "AutoEat chooses food by saturation, can eat to support health regeneration and refills the hotbar through normal inventory interactions."
+        },
+        {
+          "type": "fixed",
+          "text": "KillAura, Scaffold and other automations no longer clear another module's movement or camera control during handoffs."
+        },
+        {
+          "type": "fixed",
+          "text": "Combat automation yields while AutoEat uses food, and Backtrack handles target movement and presentation packets more precisely."
+        },
+        {
+          "type": "changed",
+          "text": "Public access no longer requires a beta key; sample community configs were removed from the online list."
+        },
+        {
+          "type": "changed",
+          "text": "Experimental FlowPath and Cinematic Replay modules are not available in this release."
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2026-09-15",
+      "title": "New modules and smoother combat controls",
+      "highlights": [
+        "Seven new movement, player and visual modules.",
+        "Velocity with five configurable modes.",
+        "Fixed KillAura turning and rotation release.",
+        "Improved target checks and combat timing."
+      ],
+      "entries": [
+        {
+          "type": "added",
+          "text": "AutoWalk automatically walks forward and pauses while holding back or sneak."
+        },
+        {
+          "type": "added",
+          "text": "AutoJump jumps while moving on the ground; automatic input is shared with KillAura movement prediction."
+        },
+        {
+          "type": "added",
+          "text": "AutoRespawn adds a configurable death-screen delay and skips Hardcore worlds."
+        },
+        {
+          "type": "added",
+          "text": "NoJumpDelay removes the local cooldown between held jumps."
+        },
+        {
+          "type": "added",
+          "text": "NoHurtCam disables damage camera tilt."
+        },
+        {
+          "type": "added",
+          "text": "TimeChanger adds Day, Sunset, Night, Midnight and Custom time presets while retaining server time updates."
+        },
+        {
+          "type": "added",
+          "text": "WeatherChanger adds Clear, Rain and Thunder with adjustable strength. Disabling restores the current world weather."
+        },
+        {
+          "type": "added",
+          "text": "Velocity adds Cancel, Percentage, Reverse, Push and Jump modes, independent horizontal/vertical scaling, explosion control, chance and ground filters, collision settings and jump delay."
+        },
+        {
+          "type": "fixed",
+          "text": "Updated the Velocity packet hook signatures for the 1.21.10 and 1.21.11 adapters."
+        },
+        {
+          "type": "fixed",
+          "text": "KillAura stops tracking without a target and smoothly releases its rotation after disabling, including while the mouse is moving."
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed excessive sideways rotation, inherited turning momentum and tracking lag against fast or strafing targets."
+        },
+        {
+          "type": "improved",
+          "text": "KillAura compares local and received target boxes, aims within their safe overlap and validates attacks against both geometries."
+        },
+        {
+          "type": "improved",
+          "text": "KillAura and AutoRod hand off the last sent rotation; TickBase pauses during their combat automation."
+        },
+        {
+          "type": "improved",
+          "text": "Combat click scheduling preserves timing across target changes and lag while respecting changing weapon cooldowns."
+        },
+        {
+          "type": "added",
+          "text": "Optional combat tracing records rotation owners, packet timing and local/network target geometry for diagnosis."
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed cookie account login."
+        },
+        {
+          "type": "changed",
+          "text": "Reorganized the client around the standalone ellie engine and tightened the OpenGL rendering boundary in preparation for additional rendering backends."
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-09-11",
+      "title": "Gameplay, map, notification and nametag fixes",
+      "highlights": [
+        "Fixed SilentSneak visuals.",
+        "KillAura targets invisible players.",
+        "Updated toast notifications to the Material layout.",
+        "Fixed white nametags in light themes.",
+        "Improved player health bars.",
+        "Fixed old death markers carrying over between SkyWars maps.",
+        "Added .bind and .toggle with themed autocomplete."
+      ],
+      "entries": [
+        {
+          "type": "fixed",
+          "text": "Fixed scrollbar dragging in offset and scaled menus. The thumb now follows the pointer directly without jumping when grabbed."
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed ChestStealer not taking any items in some moments"
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed BowAimbot flagging simulation & BadPackets"
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed SilentSneak hiding automatic crouching visuals without changing sneak movement."
+        },
+        {
+          "type": "changed",
+          "text": "KillAura can select and attack invisible players."
+        },
+        {
+          "type": "improved",
+          "text": "Updated toast notifications to use Material cards, status icons and wrapped text."
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed white Minecraft-formatted nametags in light themes."
+        },
+        {
+          "type": "improved",
+          "text": "Improved player health bars and absorption colors."
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed TerrainMap keeping death markers from the previous SkyWars map."
+        },
+        {
+          "type": "fixed",
+          "text": "Fixed a startup crash when restoring saved Terrain Map settings."
+        },
+        {
+          "type": "fixed",
+          "text": "Disconnecting from a server now returns to the ellice Servers menu."
+        },
+        {
+          "type": "added",
+          "text": "Added local .bind and .toggle chat commands with Tab completion for modules and keys, saved bindings and NONE to unbind."
+        },
+        {
+          "type": "added",
+          "text": "Added cookie login to the AccountManager."
+        },
+        {
+          "type": "improved",
+          "text": "Command suggestions follow the active theme with keyboard, toggle and module icons, selection highlights and module status. Command results appear as Material notifications."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.16.2'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.lenni0451.net/releases' }
+}
+
+loom {
+    accessWidenerPath = file('src/main/resources/ellice.accesswidener')
+}
+
+configurations {
+    embeddedLibrary
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    embeddedLibrary 'org.bytedeco:ffmpeg-platform:7.1-1.5.11'
+    embeddedLibrary 'org.bytedeco:javacv:1.5.11'
+    embeddedLibrary 'com.github.weisj:jsvg:1.6.1'
+    embeddedLibrary 'org.luaj:luaj-jse:3.0.1'
+    embeddedLibrary 'net.lenni0451.commons:gson:1.9.2'
+    embeddedLibrary 'net.lenni0451.commons:httpclient:1.9.2'
+    embeddedLibrary 'net.raphimc:MinecraftAuth:5.0.2'
+}
+
+configurations.embeddedLibrary.dependencies.each {
+    dependencies.implementation(it) { transitive = false }
+    dependencies.include(it) { transitive = false }
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Xlint:-deprecation', '-Xlint:-unchecked', '-Xmaxerrs', '5000']
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.named('sourcesJar') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from('src/main/java')
+}
+
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
+}

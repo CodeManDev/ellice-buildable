@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "ellice",
+  "version": "1.3.0",
+  "name": "ellice",
+  "description": "Legit Minecraft client overlay and plugin runtime",
+  "authors": [
+    "felix"
+  ],
+  "license": "GPL-3.0-or-later",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.felix.ellice.ElliceClient"
+    ]
+  },
+  "mixins": [
+    "ellice.common.mixins.json",
+    "ellice.mc26_1.mixins.json"
+  ],
+  "accessWidener": "ellice.accesswidener",
+  "depends": {
+    "fabricloader": "\u003e\u003d0.19.2",
+    "minecraft": "~26.1.2",
+    "java": "\u003e\u003d25",
+    "fabric-api": "*"
+  }
+}

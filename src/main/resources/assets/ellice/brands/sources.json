@@ -1,0 +1,66 @@
+{
+  "cubecraft": {
+    "image": "https://forums.cubecraftcdn.com/xenforo/serve/styles/cubecraft/cubecraft/cube-512x512.png",
+    "source": "https://www.cubecraft.net/"
+  },
+  "hypixel": {
+    "image": "https://hypixel.net/styles/hypixel-v2/images/hypixel-192px.png",
+    "source": "https://hypixel.net/"
+  },
+  "intave": {
+    "image": "https://intave.de/assets/intave_logo.png",
+    "source": "https://intave.de/"
+  },
+  "spartan": {
+    "image": "https://spartan.top/assets/img/logo.png",
+    "source": "https://spartan.top/"
+  },
+  "matrix": {
+    "image": "https://matrix.rip/matrix.svg",
+    "source": "https://matrix.rip/"
+  },
+  "grim": {
+    "image": "https://avatars.githubusercontent.com/u/110296875?v=4",
+    "source": "https://github.com/GrimAnticheat/Grim"
+  },
+  "ncp": {
+    "image": "https://avatars.githubusercontent.com/u/2401604?v=4",
+    "source": "https://github.com/NoCheatPlus/NoCheatPlus"
+  },
+  "verus": {
+    "image": "https://verus.ac/assets/img/android-chrome-192x192.png",
+    "source": "https://verus.ac/"
+  },
+  "vulcan": {
+    "image": "https://vulcanac.net/_astro/vulcan.BDdP2I72.jpg",
+    "source": "https://vulcanac.net/wiki/"
+  },
+  "hylex": {
+    "image": "https://hylex.gg/cdn/shop/files/hylex-tiny.png?width=128",
+    "source": "https://hylex.gg/"
+  },
+  "aac": {
+    "image": "https://cdn.discordapp.com/icons/248161240038375435/b02a9893687a1d8af78e8670d118bad4.png?size=128",
+    "source": "https://github.com/konsolas/AAC-Issues",
+    "note": "AAC community icon from the Discord invite linked by the official retired AAC repository."
+  },
+  "blocksmc": {
+    "image": "https://api.mcstatus.io/v2/status/java/blocksmc.com",
+    "source": "https://blocksmc.com/",
+    "note": "Original server-list favicon returned by blocksmc.com; retrieved via public status API."
+  },
+  "liquidbounce": {
+    "image": "https://github.com/CCBlueX/LiquidBounce/blob/64f9c02ca90d2728f0d1fffd459b622eb8239747/src/main/resources/resources/liquidbounce/icon_64x64.png",
+    "source": "https://github.com/CCBlueX/LiquidBounce",
+    "note": "Used for General; GPL-3.0-or-later."
+  },
+  "spectre": {
+    "source": "ellice original vector symbol",
+    "note": "Generic ghost for the archived Spectre family; no verified historical logo available. Not the unrelated modern Spectre player-visibility plugin."
+  },
+  "minemen": {
+    "source": "https://minemen.club/",
+    "image": "https://api.mcsrvstat.us/3/minemen.club",
+    "note": "Original Minemen Club server-list favicon; used for AGC as a server identifier, not a standalone anti-cheat logo."
+  }
+}
