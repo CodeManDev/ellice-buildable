@@ -13,13 +13,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(HumanoidMobRenderer.class)
 public abstract class ScaffoldSneakRenderMixin {
-   @Inject(method = "extractHumanoidRenderState", at = @At("TAIL"), require = 1)
-   private static void ellice$hideAutomaticSneak(
-      LivingEntity entity, HumanoidRenderState state, float tickDelta, ItemModelResolver items, CallbackInfo ci
-   ) {
-      if (CompatHiddenService.hidden(entity)) {
-         state.isCrouching = false;
-         state.pose = Pose.STANDING;
-      }
-   }
+  @Inject(method = "extractHumanoidRenderState", at = @At("TAIL"), require = 1)
+  private static void ellice$hideAutomaticSneak(
+      LivingEntity entity,
+      HumanoidRenderState state,
+      float tickDelta,
+      ItemModelResolver items,
+      CallbackInfo ci) {
+    if (CompatHiddenService.hidden(entity)) {
+      state.isCrouching = false;
+      state.pose = Pose.STANDING;
+    }
+  }
 }

@@ -10,17 +10,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Level.class)
 public abstract class WeatherChangerMixin {
-   @Inject(method = "getRainLevel", at = @At("RETURN"), cancellable = true)
-   private void ellice$rain(float partialTick, CallbackInfoReturnable<Float> ci) {
-      if ((Object)this instanceof ClientLevel) {
-         ci.setReturnValue(ImplRainService.rain((Float)ci.getReturnValue()));
-      }
-   }
+  @Inject(method = "getRainLevel", at = @At("RETURN"), cancellable = true)
+  private void ellice$rain(float partialTick, CallbackInfoReturnable<Float> ci) {
+    if ((Object) this instanceof ClientLevel) {
+      ci.setReturnValue(ImplRainService.rain((Float) ci.getReturnValue()));
+    }
+  }
 
-   @Inject(method = "getThunderLevel", at = @At("RETURN"), cancellable = true)
-   private void ellice$thunder(float partialTick, CallbackInfoReturnable<Float> ci) {
-      if ((Object)this instanceof ClientLevel) {
-         ci.setReturnValue(ImplRainService.thunder((Float)ci.getReturnValue()));
-      }
-   }
+  @Inject(method = "getThunderLevel", at = @At("RETURN"), cancellable = true)
+  private void ellice$thunder(float partialTick, CallbackInfoReturnable<Float> ci) {
+    if ((Object) this instanceof ClientLevel) {
+      ci.setReturnValue(ImplRainService.thunder((Float) ci.getReturnValue()));
+    }
+  }
 }

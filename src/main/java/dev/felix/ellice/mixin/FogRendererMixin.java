@@ -14,29 +14,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
-   @Inject(method = "setupFog", at = @At("RETURN"))
-   private void ellice$noFog(
+  @Inject(method = "setupFog", at = @At("RETURN"))
+  private void ellice$noFog(
       Camera camera,
       int renderDistance,
       DeltaTracker deltaTracker,
       float darkenWorldAmount,
       ClientLevel level,
-      CallbackInfoReturnable<FogData> cir
-   ) {
-      FogData fog = (FogData)cir.getReturnValue();
-      if (NoFogModule.isActive() && fog != null) {
-         if (NoFogModule.affectsLiquids() || !ellice$isLiquidFog(camera.getFluidInCamera())) {
-            fog.environmentalStart = NoFogModule.fogStart();
-            fog.environmentalEnd = NoFogModule.fogEnd();
-            fog.renderDistanceStart = NoFogModule.fogStart();
-            fog.renderDistanceEnd = NoFogModule.fogEnd();
-            fog.skyEnd = NoFogModule.fogEnd();
-            fog.cloudEnd = NoFogModule.fogEnd();
-         }
+      CallbackInfoReturnable<FogData> cir) {
+    FogData fog = (FogData) cir.getReturnValue();
+    if (NoFogModule.isActive() && fog != null) {
+      if (NoFogModule.affectsLiquids() || !ellice$isLiquidFog(camera.getFluidInCamera())) {
+        fog.environmentalStart = NoFogModule.fogStart();
+        fog.environmentalEnd = NoFogModule.fogEnd();
+        fog.renderDistanceStart = NoFogModule.fogStart();
+        fog.renderDistanceEnd = NoFogModule.fogEnd();
+        fog.skyEnd = NoFogModule.fogEnd();
+        fog.cloudEnd = NoFogModule.fogEnd();
       }
-   }
+    }
+  }
 
-   private static boolean ellice$isLiquidFog(FogType type) {
-      return type == FogType.WATER || type == FogType.LAVA || type == FogType.POWDER_SNOW;
-   }
+  private static boolean ellice$isLiquidFog(FogType type) {
+    return type == FogType.WATER || type == FogType.LAVA || type == FogType.POWDER_SNOW;
+  }
 }

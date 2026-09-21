@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractClientPlayer.class)
 public abstract class CapeSkinMixin {
-   @Inject(method = "getSkin", at = @At("RETURN"), cancellable = true, require = 1)
-   private void ellice$localAnimatedCape(CallbackInfoReturnable<PlayerSkin> cir) {
-      if ((Object)this == Minecraft.getInstance().player) {
-         cir.setReturnValue(CompatApplyService.apply((PlayerSkin)cir.getReturnValue()));
-      }
-   }
+  @Inject(method = "getSkin", at = @At("RETURN"), cancellable = true, require = 1)
+  private void ellice$localAnimatedCape(CallbackInfoReturnable<PlayerSkin> cir) {
+    if ((Object) this == Minecraft.getInstance().player) {
+      cir.setReturnValue(CompatApplyService.apply((PlayerSkin) cir.getReturnValue()));
+    }
+  }
 }

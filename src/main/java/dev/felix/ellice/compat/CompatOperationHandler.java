@@ -10,38 +10,37 @@ import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
 
 public interface CompatOperationHandler {
-   CompatibilityCapabilities capabilities();
+  CompatibilityCapabilities capabilities();
 
-   FramebufferInfo mainFramebuffer(Minecraft minecraft);
+  FramebufferInfo mainFramebuffer(Minecraft minecraft);
 
-   int framebufferId(RenderTarget renderTarget);
+  int framebufferId(RenderTarget renderTarget);
 
-   CompatData worldMatrices(GameRenderer gameRenderer);
+  CompatData worldMatrices(GameRenderer gameRenderer);
 
-   Vector3f cameraForward(Camera camera);
+  Vector3f cameraForward(Camera camera);
 
-   Vector3f cameraUp(Camera camera);
+  Vector3f cameraUp(Camera camera);
 
-   float gameTickDelta(DeltaTracker deltaTracker);
+  float gameTickDelta(DeltaTracker deltaTracker);
 
-   long windowHandle(Minecraft minecraft);
+  long windowHandle(Minecraft minecraft);
 
-   default Optional<CombatCompatibility> rotationEnvironment() {
-      return Optional.empty();
-   }
+  default Optional<CombatCompatibility> rotationEnvironment() {
+    return Optional.empty();
+  }
 
-   default Optional<ScaffoldCompatibility> scaffoldEnvironment() {
-      return Optional.empty();
-   }
+  default Optional<ScaffoldCompatibility> scaffoldEnvironment() {
+    return Optional.empty();
+  }
 
-   default Optional<CompatLoadedHandler> terrainEnvironment() {
-      return Optional.empty();
-   }
+  default Optional<CompatLoadedHandler> terrainEnvironment() {
+    return Optional.empty();
+  }
 
-   default void registerScreenClickGuard(RotationGate rotationGate) {
-   }
+  default void registerScreenClickGuard(RotationGate rotationGate) {}
 
-   default TextureUvRegion itemSprite(ItemStack itemStack) {
-      return null;
-   }
+  default TextureUvRegion itemSprite(ItemStack itemStack) {
+    return null;
+  }
 }

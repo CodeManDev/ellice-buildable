@@ -9,12 +9,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public abstract class ShieldUseInputMixin {
-   @Inject(
+  @Inject(
       method = "handleKeybinds",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z", ordinal = 0),
-      require = 1
-   )
-   private void ellice$maintainOwnedShield(CallbackInfo ci) {
-      CompatCanStartService.maintain((Minecraft)(Object)this);
-   }
+      at =
+          @At(
+              value = "INVOKE",
+              target = "Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z",
+              ordinal = 0),
+      require = 1)
+  private void ellice$maintainOwnedShield(CallbackInfo ci) {
+    CompatCanStartService.maintain((Minecraft) (Object) this);
+  }
 }

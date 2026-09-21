@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Entity.class)
 public abstract class VelocityPushMixin {
-   @WrapOperation(
+  @WrapOperation(
       method = "push(Lnet/minecraft/world/entity/Entity;)V",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;push(DDD)V")
-   )
-   private void ellice$collisionPush(Entity entity, double x, double y, double z, Operation<Void> original) {
-      double scale = VelocityActivateService.pushScale(entity);
-      if (scale != 0.0) {
-         original.call(new Object[]{entity, x * scale, y * scale, z * scale});
-      }
-   }
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;push(DDD)V"))
+  private void ellice$collisionPush(
+      Entity entity, double x, double y, double z, Operation<Void> original) {
+    double scale = VelocityActivateService.pushScale(entity);
+    if (scale != 0.0) {
+      original.call(new Object[] {entity, x * scale, y * scale, z * scale});
+    }
+  }
 }

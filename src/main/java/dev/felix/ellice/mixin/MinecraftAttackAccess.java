@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(Minecraft.class)
 public interface MinecraftAttackAccess {
-   @Invoker("startAttack")
-   boolean ellice$startAttack();
+  @Invoker("startAttack")
+  boolean ellice$startAttack();
 
-   @Invoker("continueAttack")
-   void ellice$continueAttack(boolean enabled);
+  @Invoker("continueAttack")
+  void ellice$continueAttack(boolean enabled);
 }

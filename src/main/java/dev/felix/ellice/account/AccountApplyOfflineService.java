@@ -8,26 +8,33 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.User;
 
 public final class AccountApplyOfflineService {
-   private AccountApplyOfflineService() {
-   }
+  private AccountApplyOfflineService() {}
 
-   public static void apply(AccountNewThreadService.LoginResult loginResult) {
-      AccountTypeData accountTypeData = loginResult.account();
-      updateState(accountTypeData, loginResult.accessToken());
-   }
+  public static void apply(AccountNewThreadService.LoginResult loginResult) {
+    AccountTypeData accountTypeData = loginResult.account();
+    updateState(accountTypeData, loginResult.accessToken());
+  }
 
-   public static void applyOffline(AccountTypeData accountTypeData) {
-      if (!accountTypeData.isOffline()) {
-         throw new IllegalArgumentException("Expected an offline account");
-      }
+  public static void applyOffline(AccountTypeData accountTypeData) {
+    if (!accountTypeData.isOffline()) {
+      throw new IllegalArgumentException("Expected an offline account");
+    }
 
-      updateState(accountTypeData, "-");
-   }
+    updateState(accountTypeData, "-");
+  }
 
-   private static void updateState(AccountTypeData accountTypeData, String text) {
-      User currentUser = new User(accountTypeData.username(), accountTypeData.uuid(), text, Optional.empty(), Optional.empty());
-      Minecraft minecraft = Minecraft.getInstance();
-      minecraft.user = currentUser;
-      minecraft.profileFuture = CompletableFuture.completedFuture(new ProfileResult(new GameProfile(accountTypeData.uuid(), accountTypeData.username())));
-   }
+  private static void updateState(AccountTypeData accountTypeData, String text) {
+    User currentUser =
+        new User(
+            accountTypeData.username(),
+            accountTypeData.uuid(),
+            text,
+            Optional.empty(),
+            Optional.empty());
+    Minecraft minecraft = Minecraft.getInstance();
+    minecraft.user = currentUser;
+    minecraft.profileFuture =
+        CompletableFuture.completedFuture(
+            new ProfileResult(new GameProfile(accountTypeData.uuid(), accountTypeData.username())));
+  }
 }

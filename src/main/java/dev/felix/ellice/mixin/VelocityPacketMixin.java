@@ -10,14 +10,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ClientPacketListener.class)
 public abstract class VelocityPacketMixin {
-   @Redirect(
+  @Redirect(
       method = "handleSetEntityMotion",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpMotion(Lnet/minecraft/world/phys/Vec3;)V")
-   )
-   private void ellice$velocity(Entity entity, Vec3 incoming) {
-      Vec3 value = VelocityActivateService.impulse(entity, incoming, false);
-      if (value != null) {
-         entity.lerpMotion(value);
-      }
-   }
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/world/entity/Entity;lerpMotion(Lnet/minecraft/world/phys/Vec3;)V"))
+  private void ellice$velocity(Entity entity, Vec3 incoming) {
+    Vec3 value = VelocityActivateService.impulse(entity, incoming, false);
+    if (value != null) {
+      entity.lerpMotion(value);
+    }
+  }
 }

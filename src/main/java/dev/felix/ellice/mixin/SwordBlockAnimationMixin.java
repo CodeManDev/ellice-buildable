@@ -19,13 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemInHandRenderer.class)
 public abstract class SwordBlockAnimationMixin {
-   @Shadow
-   public abstract void renderItem(
-      LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext itemDisplayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int value
-   );
+  @Shadow
+  public abstract void renderItem(
+      LivingEntity livingEntity,
+      ItemStack itemStack,
+      ItemDisplayContext itemDisplayContext,
+      PoseStack poseStack,
+      SubmitNodeCollector submitNodeCollector,
+      int value);
 
-   @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-   private void ellice$legacySword(
+  @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
+  private void ellice$legacySword(
       AbstractClientPlayer player,
       float partialTick,
       float pitch,
@@ -36,29 +40,29 @@ public abstract class SwordBlockAnimationMixin {
       PoseStack pose,
       SubmitNodeCollector collector,
       int light,
-      CallbackInfo ci
-   ) {
-      if (CompatBlockingService.hideShield(player, hand, item)) {
-         ci.cancel();
-      } else if (CompatBlockingService.sword(player, hand, item)) {
-         boolean right = player.getMainArm() == HumanoidArm.RIGHT;
-         pose.pushPose();
+      CallbackInfo ci) {
+    if (CompatBlockingService.hideShield(player, hand, item)) {
+      ci.cancel();
+    } else if (CompatBlockingService.sword(player, hand, item)) {
+      boolean right = player.getMainArm() == HumanoidArm.RIGHT;
+      pose.pushPose();
 
-         try {
-            RenderMatrixService.apply(pose, player.getMainArm(), equip, swing);
-            this.renderItem(
-               player,
-               item,
-               right ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND,
-               pose,
-               collector,
-               light
-            );
-         } finally {
-            pose.popPose();
-         }
-
-         ci.cancel();
+      try {
+        RenderMatrixService.apply(pose, player.getMainArm(), equip, swing);
+        this.renderItem(
+            player,
+            item,
+            right
+                ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND
+                : ItemDisplayContext.FIRST_PERSON_LEFT_HAND,
+            pose,
+            collector,
+            light);
+      } finally {
+        pose.popPose();
       }
-   }
+
+      ci.cancel();
+    }
+  }
 }

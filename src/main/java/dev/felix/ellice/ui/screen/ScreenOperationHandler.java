@@ -4,47 +4,43 @@ import dev.felix.ellice.ui.scene.SceneCodec;
 import dev.felix.ellice.ui.scene.ScenePctService;
 
 public interface ScreenOperationHandler {
-   String id();
+  String id();
 
-   ScenePctService<?> build(ScreenScreenIdService screenScreenId);
+  ScenePctService<?> build(ScreenScreenIdService screenScreenId);
 
-   default SceneCodec.Preset transitionPreset() {
-      return SceneCodec.Preset.MODAL;
-   }
+  default SceneCodec.Preset transitionPreset() {
+    return SceneCodec.Preset.MODAL;
+  }
 
-   default SceneCodec.Options transitionOptions() {
-      return new SceneCodec.Options();
-   }
+  default SceneCodec.Options transitionOptions() {
+    return new SceneCodec.Options();
+  }
 
-   default boolean closesOnEscape() {
-      return true;
-   }
+  default boolean closesOnEscape() {
+    return true;
+  }
 
-   default float backgroundDesaturation() {
-      return 0.42F;
-   }
+  default float backgroundDesaturation() {
+    return 0.42F;
+  }
 
-   default boolean overlaysPreviousScreen() {
-      return false;
-   }
+  default boolean overlaysPreviousScreen() {
+    return false;
+  }
 
-   default boolean opensAsWindow() {
-      return false;
-   }
+  default boolean opensAsWindow() {
+    return false;
+  }
 
-   default void onSuspend(ScreenScreenIdService screenScreenId) {
-   }
+  default void onSuspend(ScreenScreenIdService screenScreenId) {}
 
-   default void onOpen(ScreenScreenIdService screenScreenId) {
-   }
+  default void onOpen(ScreenScreenIdService screenScreenId) {}
 
-   default void onClose(ScreenScreenIdService screenScreenId) {
-   }
+  default void onClose(ScreenScreenIdService screenScreenId) {}
 
-   default void tick(ScreenScreenIdService screenScreenId) {
-   }
+  default void tick(ScreenScreenIdService screenScreenId) {}
 
-   default boolean keyPressed(ScreenScreenIdService screenScreenId, int value, int currentValue) {
-      return false;
-   }
+  default boolean keyPressed(ScreenScreenIdService screenScreenId, int value, int currentValue) {
+    return false;
+  }
 }

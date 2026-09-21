@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(CreateWorldScreen.class)
 public interface CreateWorldScreenAccess {
-   @Invoker("onCreate")
-   void ellice$create();
+  @Invoker("onCreate")
+  void ellice$create();
 
-   @Invoker("removeTempDataPackDir")
-   void ellice$discardTemporaryData();
+  @Invoker("removeTempDataPackDir")
+  void ellice$discardTemporaryData();
 }

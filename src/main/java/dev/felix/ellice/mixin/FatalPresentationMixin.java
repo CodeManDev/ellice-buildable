@@ -8,8 +8,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(targets = "com.mojang.blaze3d.opengl.GlDevice")
 public abstract class FatalPresentationMixin {
-   @Inject(method = "presentFrame", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwSwapBuffers(J)V", remap = false))
-   private void ellice$presentCrash(CallbackInfo ci) {
-      FatalShowingService.present();
-   }
+  @Inject(
+      method = "presentFrame",
+      at =
+          @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwSwapBuffers(J)V", remap = false))
+  private void ellice$presentCrash(CallbackInfo ci) {
+    FatalShowingService.present();
+  }
 }

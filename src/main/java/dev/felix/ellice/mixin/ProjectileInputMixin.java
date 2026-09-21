@@ -10,17 +10,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public abstract class ProjectileInputMixin {
-   @Inject(method = {"startUseItem", "continueAttack"}, at = @At("HEAD"), cancellable = true)
-   private void ellice$reserveProjectileTick(CallbackInfo ci) {
-      if (CompatBeginTickService.blocking()) {
-         ci.cancel();
-      }
-   }
+  @Inject(
+      method = {"startUseItem", "continueAttack"},
+      at = @At("HEAD"),
+      cancellable = true)
+  private void ellice$reserveProjectileTick(CallbackInfo ci) {
+    if (CompatBeginTickService.blocking()) {
+      ci.cancel();
+    }
+  }
 
-   @Inject(method = "startAttack", at = @At("HEAD"), cancellable = true)
-   private void ellice$reserveProjectileAttack(CallbackInfoReturnable<Boolean> cir) {
-      if (CompatBeginTickService.blocking()) {
-         cir.setReturnValue(false);
-      }
-   }
+  @Inject(method = "startAttack", at = @At("HEAD"), cancellable = true)
+  private void ellice$reserveProjectileAttack(CallbackInfoReturnable<Boolean> cir) {
+    if (CompatBeginTickService.blocking()) {
+      cir.setReturnValue(false);
+    }
+  }
 }

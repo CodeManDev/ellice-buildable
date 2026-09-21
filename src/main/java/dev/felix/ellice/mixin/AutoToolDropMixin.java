@@ -1,8 +1,8 @@
 package dev.felix.ellice.mixin;
 
-import dev.felix.ellice.compat.CompatProfileTracker;
 import dev.felix.ellice.compat.CompatConfigureService;
 import dev.felix.ellice.compat.CompatOptionsTracker;
+import dev.felix.ellice.compat.CompatProfileTracker;
 import dev.felix.ellice.compat.PearlThrowController;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LocalPlayer.class)
 public abstract class AutoToolDropMixin {
-   @Inject(method = "drop", at = @At("HEAD"))
-   private void ellice$releaseForDrop(CallbackInfoReturnable<Boolean> cir) {
-      CompatProfileTracker.manualInput();
-      CompatConfigureService.beforeInteraction();
-      CompatOptionsTracker.beforeInteraction();
-      PearlThrowController.manualInput();
-   }
+  @Inject(method = "drop", at = @At("HEAD"))
+  private void ellice$releaseForDrop(CallbackInfoReturnable<Boolean> cir) {
+    CompatProfileTracker.manualInput();
+    CompatConfigureService.beforeInteraction();
+    CompatOptionsTracker.beforeInteraction();
+    PearlThrowController.manualInput();
+  }
 }

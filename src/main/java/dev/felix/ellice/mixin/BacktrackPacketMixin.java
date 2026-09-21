@@ -9,14 +9,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(targets = "net.minecraft.network.PacketProcessor$ListenerAndPacket")
 public abstract class BacktrackPacketMixin {
-   @Redirect(
+  @Redirect(
       method = "handle",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/Packet;handle(Lnet/minecraft/network/PacketListener;)V"),
-      require = 1
-   )
-   private void ellice$orderedIncoming(Packet<?> packet, PacketListener listener) {
-      if (!CompatEnableHandler.intercept(packet, listener)) {
-         CompatEnableHandler.handle(packet, listener);
-      }
-   }
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/network/protocol/Packet;handle(Lnet/minecraft/network/PacketListener;)V"),
+      require = 1)
+  private void ellice$orderedIncoming(Packet<?> packet, PacketListener listener) {
+    if (!CompatEnableHandler.intercept(packet, listener)) {
+      CompatEnableHandler.handle(packet, listener);
+    }
+  }
 }

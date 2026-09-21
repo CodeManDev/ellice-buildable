@@ -10,19 +10,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class ScaffoldInteractionRotationMixin {
-   @Inject(method = "getYRot()F", at = @At("HEAD"), cancellable = true, require = 1)
-   private void ellice$interactionYaw(CallbackInfoReturnable<Float> callback) {
-      RotationData rotation = ScaffoldForActorService.forActor(this);
-      if (rotation != null) {
-         callback.setReturnValue((float)rotation.yaw());
-      }
-   }
+  @Inject(method = "getYRot()F", at = @At("HEAD"), cancellable = true, require = 1)
+  private void ellice$interactionYaw(CallbackInfoReturnable<Float> callback) {
+    RotationData rotation = ScaffoldForActorService.forActor(this);
+    if (rotation != null) {
+      callback.setReturnValue((float) rotation.yaw());
+    }
+  }
 
-   @Inject(method = "getXRot()F", at = @At("HEAD"), cancellable = true, require = 1)
-   private void ellice$interactionPitch(CallbackInfoReturnable<Float> callback) {
-      RotationData rotation = ScaffoldForActorService.forActor(this);
-      if (rotation != null) {
-         callback.setReturnValue((float)rotation.pitch());
-      }
-   }
+  @Inject(method = "getXRot()F", at = @At("HEAD"), cancellable = true, require = 1)
+  private void ellice$interactionPitch(CallbackInfoReturnable<Float> callback) {
+    RotationData rotation = ScaffoldForActorService.forActor(this);
+    if (rotation != null) {
+      callback.setReturnValue((float) rotation.pitch());
+    }
+  }
 }

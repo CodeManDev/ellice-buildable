@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(LivingEntity.class)
 public interface SpeedLivingAccess {
-   @Accessor("noJumpDelay")
-   void ellice$speedJumpDelay(int value);
+  @Accessor("noJumpDelay")
+  void ellice$speedJumpDelay(int value);
 }

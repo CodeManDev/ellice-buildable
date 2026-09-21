@@ -12,10 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityRenderer.class)
 public abstract class NametagMixin {
-   @Inject(method = "extractRenderState", at = @At("TAIL"))
-   private void ellice$replaceNametag(Entity entity, EntityRenderState state, float tickDelta, CallbackInfo ci) {
-      if (NametagsPrepareService.suppressesVanilla() || NametagsPrepareService.replaces(entity.getUUID()) || EspPrepareService.replaces(entity.getUUID())) {
-         state.nameTag = null;
-      }
-   }
+  @Inject(method = "extractRenderState", at = @At("TAIL"))
+  private void ellice$replaceNametag(
+      Entity entity, EntityRenderState state, float tickDelta, CallbackInfo ci) {
+    if (NametagsPrepareService.suppressesVanilla()
+        || NametagsPrepareService.replaces(entity.getUUID())
+        || EspPrepareService.replaces(entity.getUUID())) {
+      state.nameTag = null;
+    }
+  }
 }

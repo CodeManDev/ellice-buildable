@@ -6,27 +6,33 @@ import dev.felix.ellice.feature.rotation.RotationData;
 import net.minecraft.client.Minecraft;
 
 public interface ScaffoldOperationHandler {
-   void prepare(Minecraft minecraft, ScaffoldCompatibility scaffoldCompatibility, CombatCompatibility combatCompatibility, ScaffoldRemapService.Input input, ScaffoldSettings scaffoldSettings, Runnable runnable);
+  void prepare(
+      Minecraft minecraft,
+      ScaffoldCompatibility scaffoldCompatibility,
+      CombatCompatibility combatCompatibility,
+      ScaffoldRemapService.Input input,
+      ScaffoldSettings scaffoldSettings,
+      Runnable runnable);
 
-   void observeOutgoing(ScaffoldCompatibility scaffoldCompatibility, Object value);
+  void observeOutgoing(ScaffoldCompatibility scaffoldCompatibility, Object value);
 
-   void observeServerPacket(ScaffoldCompatibility scaffoldCompatibility, Object value);
+  void observeServerPacket(ScaffoldCompatibility scaffoldCompatibility, Object value);
 
-   void reconcile(Minecraft minecraft);
+  void reconcile(Minecraft minecraft);
 
-   RotationData rotation();
+  RotationData rotation();
 
-   ScaffoldRemapService.Result movement();
+  ScaffoldRemapService.Result movement();
 
-   PlacementCandidate lastPlacement();
+  PlacementCandidate lastPlacement();
 
-   boolean braking();
+  boolean braking();
 
-   String status();
+  String status();
 
-   void suspend(Minecraft minecraft, double doubleValue, double currentDoubleValue);
+  void suspend(Minecraft minecraft, double doubleValue, double currentDoubleValue);
 
-   void release();
+  void release();
 
-   void reset(Minecraft minecraft, ScaffoldCompatibility scaffoldCompatibility, boolean enabled);
+  void reset(Minecraft minecraft, ScaffoldCompatibility scaffoldCompatibility, boolean enabled);
 }

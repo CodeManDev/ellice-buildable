@@ -8,9 +8,11 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(ItemInHandRenderer.class)
 public class HeldItemSwapMixin {
-   @ModifyConstant(method = "tick", constant = {@Constant(floatValue = 0.4F), @Constant(floatValue = -0.4F)})
-   private float ellice$smoothSwap(float orig) {
-      float magnitude = CoreAutoSprintRequestedClient.itemSwapClamp();
-      return orig < 0.0F ? -magnitude : magnitude;
-   }
+  @ModifyConstant(
+      method = "tick",
+      constant = {@Constant(floatValue = 0.4F), @Constant(floatValue = -0.4F)})
+  private float ellice$smoothSwap(float orig) {
+    float magnitude = CoreAutoSprintRequestedClient.itemSwapClamp();
+    return orig < 0.0F ? -magnitude : magnitude;
+  }
 }

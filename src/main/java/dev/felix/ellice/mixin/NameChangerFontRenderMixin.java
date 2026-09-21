@@ -9,26 +9,24 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Font.class)
 public abstract class NameChangerFontRenderMixin {
-   @ModifyVariable(
+  @ModifyVariable(
       method = "prepareText(Ljava/lang/String;FFIZI)Lnet/minecraft/client/gui/Font$PreparedText;",
       at = @At("HEAD"),
       argsOnly = true,
-      ordinal = 0
-   )
-   private String ellice$nameString(String text) {
-      return CompatSessionNameService.replace(text);
-   }
+      ordinal = 0)
+  private String ellice$nameString(String text) {
+    return CompatSessionNameService.replace(text);
+  }
 
-   @ModifyVariable(
+  @ModifyVariable(
       method = {
-            "drawInBatch8xOutline(Lnet/minecraft/util/FormattedCharSequence;FFIILorg/joml/Matrix4fc;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
-            "prepareText(Lnet/minecraft/util/FormattedCharSequence;FFIZZI)Lnet/minecraft/client/gui/Font$PreparedText;"
+        "drawInBatch8xOutline(Lnet/minecraft/util/FormattedCharSequence;FFIILorg/joml/Matrix4fc;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+        "prepareText(Lnet/minecraft/util/FormattedCharSequence;FFIZZI)Lnet/minecraft/client/gui/Font$PreparedText;"
       },
       at = @At("HEAD"),
       argsOnly = true,
-      ordinal = 0
-   )
-   private FormattedCharSequence ellice$nameSequence(FormattedCharSequence text) {
-      return CompatSessionNameService.replace(text);
-   }
+      ordinal = 0)
+  private FormattedCharSequence ellice$nameSequence(FormattedCharSequence text) {
+    return CompatSessionNameService.replace(text);
+  }
 }

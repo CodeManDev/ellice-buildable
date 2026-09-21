@@ -2,98 +2,120 @@ package dev.felix.ellice.compat;
 
 import dev.felix.ellice.feature.rotation.RotationData;
 import dev.felix.ellice.feature.rotation.RotationVector;
-import dev.felix.ellice.feature.scaffold.ScaffoldMode;
-import dev.felix.ellice.feature.scaffold.ScaffoldBlockHit;
-import dev.felix.ellice.feature.scaffold.ScaffoldPlayerSnapshot;
-import dev.felix.ellice.feature.scaffold.PlacementCandidate;
 import dev.felix.ellice.feature.scaffold.BlockCoordinates;
+import dev.felix.ellice.feature.scaffold.PlacementCandidate;
+import dev.felix.ellice.feature.scaffold.ScaffoldBlockHit;
+import dev.felix.ellice.feature.scaffold.ScaffoldMode;
+import dev.felix.ellice.feature.scaffold.ScaffoldPlayerSnapshot;
 import java.util.Optional;
 import net.minecraft.client.Minecraft;
 
 public interface ScaffoldCompatibility {
-   Optional<ScaffoldPlayerSnapshot> capture(Minecraft minecraft);
+  Optional<ScaffoldPlayerSnapshot> capture(Minecraft minecraft);
 
-   boolean isReplaceable(Minecraft minecraft, BlockCoordinates blockCoordinates);
+  boolean isReplaceable(Minecraft minecraft, BlockCoordinates blockCoordinates);
 
-   boolean isPlayerSupporting(Minecraft minecraft, BlockCoordinates blockCoordinates);
+  boolean isPlayerSupporting(Minecraft minecraft, BlockCoordinates blockCoordinates);
 
-   default double groundFriction(Minecraft minecraft) {
-      return 1.0;
-   }
+  default double groundFriction(Minecraft minecraft) {
+    return 1.0;
+  }
 
-   default double groundInputAcceleration(Minecraft minecraft) {
+  default double groundInputAcceleration(Minecraft minecraft) {
+    return Double.NaN;
+  }
+
+  default double groundInputAcceleration(Minecraft minecraft, boolean enabled) {
+    return enabled ? Double.NaN : this.groundInputAcceleration(minecraft);
+  }
+
+  default double groundInputAccelerationEstimate(
+      Minecraft minecraft, int value, int currentValue, boolean enabled) {
+    if (value >= -1 && value <= 1 && currentValue >= -1 && currentValue <= 1) {
       return Double.NaN;
-   }
+    } else {
+      throw new IllegalArgumentException("Input axes must be in [-1, 1]");
+    }
+  }
 
-   default double groundInputAcceleration(Minecraft minecraft, boolean enabled) {
-      return enabled ? Double.NaN : this.groundInputAcceleration(minecraft);
-   }
+  default double airInputAccelerationEstimate(Minecraft minecraft, int value, int currentValue) {
+    return 0.019999999552965164
+        * Math.min(1.0, Math.hypot(value, currentValue) * 0.9800000190734863);
+  }
 
-   default double groundInputAccelerationEstimate(Minecraft minecraft, int value, int currentValue, boolean enabled) {
-      if (value >= -1 && value <= 1 && currentValue >= -1 && currentValue <= 1) {
-         return Double.NaN;
-      } else {
-         throw new IllegalArgumentException("Input axes must be in [-1, 1]");
-      }
-   }
+  default double jumpVelocityEstimate(Minecraft minecraft) {
+    return 0.41999998688697815;
+  }
 
-   default double airInputAccelerationEstimate(Minecraft minecraft, int value, int currentValue) {
-      return 0.019999999552965164
-         * Math.min(1.0, Math.hypot(value, currentValue) * 0.9800000190734863);
-   }
+  boolean isFaceSturdy(
+      Minecraft minecraft, BlockCoordinates blockCoordinates, ScaffoldMode scaffoldMode);
 
-   default double jumpVelocityEstimate(Minecraft minecraft) {
-      return 0.41999998688697815;
-   }
+  int findPlaceableHotbarSlot(Minecraft minecraft);
 
-   boolean isFaceSturdy(Minecraft minecraft, BlockCoordinates blockCoordinates, ScaffoldMode scaffoldMode);
+  int selectedHotbarSlot(Minecraft minecraft);
 
-   int findPlaceableHotbarSlot(Minecraft minecraft);
+  void selectHotbarSlot(Minecraft minecraft, int value);
 
-   int selectedHotbarSlot(Minecraft minecraft);
+  boolean canStartUseItem(Minecraft minecraft);
 
-   void selectHotbarSlot(Minecraft minecraft, int value);
+  Optional<PlacementCandidate> raycastPlacement(
+      Minecraft minecraft,
+      PlacementCandidate placementCandidate,
+      RotationData rotationData,
+      double doubleValue);
 
-   boolean canStartUseItem(Minecraft minecraft);
+  Optional<PlacementCandidate> raycastPlacementFromEye(
+      Minecraft minecraft,
+      PlacementCandidate placementCandidate,
+      RotationData rotationData,
+      double doubleValue,
+      RotationVector rotationVector);
 
-   Optional<PlacementCandidate> raycastPlacement(Minecraft minecraft, PlacementCandidate placementCandidate, RotationData rotationData, double doubleValue);
+  Optional<ScaffoldBlockHit> raycastBlockFromEye(
+      Minecraft minecraft,
+      RotationData rotationData,
+      double doubleValue,
+      RotationVector rotationVector);
 
-   Optional<PlacementCandidate> raycastPlacementFromEye(Minecraft minecraft, PlacementCandidate placementCandidate, RotationData rotationData, double doubleValue, RotationVector rotationVector);
+  default Optional<PlacementCandidate> placementFromRay(
+      Minecraft minecraft, ScaffoldBlockHit scaffoldBlockHit) {
+    return CompatCanReplaceService.resolve(
+        minecraft, scaffoldBlockHit, this.findPlaceableHotbarSlot(minecraft));
+  }
 
-   Optional<ScaffoldBlockHit> raycastBlockFromEye(Minecraft minecraft, RotationData rotationData, double doubleValue, RotationVector rotationVector);
+  default boolean rayHitsPlacement(
+      Minecraft minecraft,
+      PlacementCandidate placementCandidate,
+      RotationData rotationData,
+      double doubleValue) {
+    return this.raycastPlacement(minecraft, placementCandidate, rotationData, doubleValue)
+        .isPresent();
+  }
 
-   default Optional<PlacementCandidate> placementFromRay(Minecraft minecraft, ScaffoldBlockHit scaffoldBlockHit) {
-      return CompatCanReplaceService.resolve(minecraft, scaffoldBlockHit, this.findPlaceableHotbarSlot(minecraft));
-   }
+  boolean place(Minecraft minecraft, PlacementCandidate placementCandidate);
 
-   default boolean rayHitsPlacement(Minecraft minecraft, PlacementCandidate placementCandidate, RotationData rotationData, double doubleValue) {
-      return this.raycastPlacement(minecraft, placementCandidate, rotationData, doubleValue).isPresent();
-   }
+  default ScaffoldCompatibility.PlacementFeedback placementFeedback(
+      Object value, BlockCoordinates blockCoordinates) {
+    return ScaffoldCompatibility.PlacementFeedback.NONE;
+  }
 
-   boolean place(Minecraft minecraft, PlacementCandidate placementCandidate);
+  default int placementSequence(Object value, PlacementCandidate placementCandidate) {
+    return -1;
+  }
 
-   default ScaffoldCompatibility.PlacementFeedback placementFeedback(Object value, BlockCoordinates blockCoordinates) {
-      return ScaffoldCompatibility.PlacementFeedback.NONE;
-   }
+  default int acknowledgedPlacementSequence(Object value) {
+    return -1;
+  }
 
-   default int placementSequence(Object value, PlacementCandidate placementCandidate) {
-      return -1;
-   }
+  void reconcilePlacementPrediction(Minecraft minecraft, int value);
 
-   default int acknowledgedPlacementSequence(Object value) {
-      return -1;
-   }
+  enum PlacementFeedback {
+    NONE,
+    ACCEPTED,
+    REJECTED;
 
-   void reconcilePlacementPrediction(Minecraft minecraft, int value);
-
-   enum PlacementFeedback {
-      NONE,
-      ACCEPTED,
-      REJECTED;
-
-
-      private static ScaffoldCompatibility.PlacementFeedback[] $values() {
-         return new ScaffoldCompatibility.PlacementFeedback[]{NONE, ACCEPTED, REJECTED};
-      }
-   }
+    private static ScaffoldCompatibility.PlacementFeedback[] $values() {
+      return new ScaffoldCompatibility.PlacementFeedback[] {NONE, ACCEPTED, REJECTED};
+    }
+  }
 }

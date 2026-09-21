@@ -19,26 +19,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class PlayerModelMaskCaptureMixin {
-   private static final String SUBMIT_METHOD = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V";
-   private static final String SUBMIT_MODEL = "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V";
-   @Shadow
-   protected EntityModel<?> model;
+  private static final String SUBMIT_METHOD =
+      "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V";
+  private static final String SUBMIT_MODEL =
+      "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V";
+  @Shadow protected EntityModel<?> model;
 
-   @Inject(
-      method = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V"
-      )
-   )
-   private void ellice$capturePlayerModel(
-      LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera, CallbackInfo ci
-   ) {
-      if (state instanceof AvatarRenderState avatar && this.model instanceof PlayerModel playerModel) {
-         Minecraft minecraft = Minecraft.getInstance();
-         if (minecraft.level != null && minecraft.level.getEntity(avatar.id) instanceof Player player) {
-            Mc261CaptureService.capture(player.getUUID(), avatar.id, playerModel, avatar, poseStack);
-         }
+  @Inject(
+      method =
+          "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V"))
+  private void ellice$capturePlayerModel(
+      LivingEntityRenderState state,
+      PoseStack poseStack,
+      SubmitNodeCollector collector,
+      CameraRenderState camera,
+      CallbackInfo ci) {
+    if (state instanceof AvatarRenderState avatar
+        && this.model instanceof PlayerModel playerModel) {
+      Minecraft minecraft = Minecraft.getInstance();
+      if (minecraft.level != null
+          && minecraft.level.getEntity(avatar.id) instanceof Player player) {
+        Mc261CaptureService.capture(player.getUUID(), avatar.id, playerModel, avatar, poseStack);
       }
-   }
+    }
+  }
 }

@@ -11,14 +11,17 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ClientPacketListener.class)
 public abstract class INVOKEComponent {
-   @ModifyExpressionValue(
+  @ModifyExpressionValue(
       method = "handleExplosion",
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/network/protocol/game/ClientboundExplodePacket;playerKnockback()Ljava/util/Optional;"
-      )
-   )
-   private Optional<Vec3> ellice$explosionMotion(Optional<Vec3> incoming) {
-      return incoming.flatMap(value -> Optional.ofNullable(VelocityActivateService.impulse(Minecraft.getInstance().player, value, true)));
-   }
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/network/protocol/game/ClientboundExplodePacket;playerKnockback()Ljava/util/Optional;"))
+  private Optional<Vec3> ellice$explosionMotion(Optional<Vec3> incoming) {
+    return incoming.flatMap(
+        value ->
+            Optional.ofNullable(
+                VelocityActivateService.impulse(Minecraft.getInstance().player, value, true)));
+  }
 }

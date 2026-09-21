@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameRenderer.class)
 public abstract class BlockSelectionMixin {
-   @Inject(method = "shouldRenderBlockOutline", at = @At("HEAD"), cancellable = true, require = 1)
-   private void ellice$selectionOutline(CallbackInfoReturnable<Boolean> callback) {
-      if (CoreAutoSprintRequestedClient.customBlockOutline()) {
-         callback.setReturnValue(false);
-      }
-   }
+  @Inject(method = "shouldRenderBlockOutline", at = @At("HEAD"), cancellable = true, require = 1)
+  private void ellice$selectionOutline(CallbackInfoReturnable<Boolean> callback) {
+    if (CoreAutoSprintRequestedClient.customBlockOutline()) {
+      callback.setReturnValue(false);
+    }
+  }
 }

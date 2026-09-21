@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeybindCaptureMixin {
-   @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
-   private void ellice$captureBinding(long window, int action, KeyEvent event, CallbackInfo ci) {
-      if (CompatInterceptService.intercept(window, event.key(), action, event.modifiers())) {
-         ci.cancel();
-      }
-   }
+  @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
+  private void ellice$captureBinding(long window, int action, KeyEvent event, CallbackInfo ci) {
+    if (CompatInterceptService.intercept(window, event.key(), action, event.modifiers())) {
+      ci.cancel();
+    }
+  }
 }

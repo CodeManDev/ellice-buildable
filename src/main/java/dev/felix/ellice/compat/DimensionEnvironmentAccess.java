@@ -5,10 +5,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 
 final class DimensionEnvironmentAccess {
-   private DimensionEnvironmentAccess() {
-   }
+  private DimensionEnvironmentAccess() {}
 
-   static boolean waterEvaporates(Minecraft minecraft, BlockPos blockPos) {
-      return (Boolean)minecraft.level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, blockPos);
-   }
+  static boolean waterEvaporates(Minecraft minecraft, BlockPos blockPos) {
+    return (Boolean)
+        minecraft
+            .level
+            .environmentAttributes()
+            .getValue(EnvironmentAttributes.WATER_EVAPORATES, blockPos);
+  }
 }

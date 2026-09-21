@@ -11,14 +11,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin {
-   @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
-   private void ellice$keyInput(long window, int action, KeyEvent event, CallbackInfo ci) {
-      if (FatalShowingService.consumeKey(window, event.key(), action)) {
-         ci.cancel();
-      } else {
-         if (CoreIsInitializedHandler.isReady() && CoreIsInitializedHandler.get().handleKeyInput(window, event.key(), event.scancode(), action)) {
-            ci.cancel();
-         }
+  @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
+  private void ellice$keyInput(long window, int action, KeyEvent event, CallbackInfo ci) {
+    if (FatalShowingService.consumeKey(window, event.key(), action)) {
+      ci.cancel();
+    } else {
+      if (CoreIsInitializedHandler.isReady()
+          && CoreIsInitializedHandler.get()
+              .handleKeyInput(window, event.key(), event.scancode(), action)) {
+        ci.cancel();
       }
-   }
+    }
+  }
 }

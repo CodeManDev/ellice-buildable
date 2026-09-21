@@ -9,12 +9,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(LivingEntity.class)
 public abstract class ScaffoldJumpMovementMixin {
-   @Redirect(
+  @Redirect(
       method = "jumpFromGround",
       at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getYRot()F"),
-      require = 1
-   )
-   private float ellice$scaffoldJumpYaw(LivingEntity entity) {
-      return entity instanceof LocalPlayer ? LocalPhysicsFrameBus.yaw().orElseGet(entity::getYRot) : entity.getYRot();
-   }
+      require = 1)
+  private float ellice$scaffoldJumpYaw(LivingEntity entity) {
+    return entity instanceof LocalPlayer
+        ? LocalPhysicsFrameBus.yaw().orElseGet(entity::getYRot)
+        : entity.getYRot();
+  }
 }

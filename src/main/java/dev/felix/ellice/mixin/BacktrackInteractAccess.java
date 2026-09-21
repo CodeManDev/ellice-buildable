@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ServerboundInteractPacket.class)
 public interface BacktrackInteractAccess {
-   @Accessor("entityId")
-   int ellice$entityId();
+  @Accessor("entityId")
+  int ellice$entityId();
 }

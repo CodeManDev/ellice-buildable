@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Entity.class)
 public abstract class SpeedEntityMixin {
-   @ModifyVariable(method = "move", at = @At("HEAD"), argsOnly = true)
-   private Vec3 ellice$speedMove(Vec3 movement, MoverType type, Vec3 original) {
-      return SpeedActivateService.move(this, type, movement);
-   }
+  @ModifyVariable(method = "move", at = @At("HEAD"), argsOnly = true)
+  private Vec3 ellice$speedMove(Vec3 movement, MoverType type, Vec3 original) {
+    return SpeedActivateService.move(this, type, movement);
+  }
 
-   @ModifyVariable(method = "moveRelative", at = @At("HEAD"), argsOnly = true)
-   private float ellice$speedStrafe(float speed) {
-      return SpeedActivateService.strafe(this, speed);
-   }
+  @ModifyVariable(method = "moveRelative", at = @At("HEAD"), argsOnly = true)
+  private float ellice$speedStrafe(float speed) {
+    return SpeedActivateService.strafe(this, speed);
+  }
 }

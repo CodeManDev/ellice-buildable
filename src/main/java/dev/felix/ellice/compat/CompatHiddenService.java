@@ -6,14 +6,16 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Pose;
 
 public final class CompatHiddenService {
-   private CompatHiddenService() {
-   }
+  private CompatHiddenService() {}
 
-   public static boolean hidden(Entity entity) {
-      return entity != null && entity == Minecraft.getInstance().player && entity.getPose() == Pose.CROUCHING && PlacementOverrideBus.hideSneakVisuals();
-   }
+  public static boolean hidden(Entity entity) {
+    return entity != null
+        && entity == Minecraft.getInstance().player
+        && entity.getPose() == Pose.CROUCHING
+        && PlacementOverrideBus.hideSneakVisuals();
+  }
 
-   public static float eyeHeight(Entity entity) {
-      return hidden(entity) ? entity.getEyeHeight(Pose.STANDING) : entity.getEyeHeight();
-   }
+  public static float eyeHeight(Entity entity) {
+    return hidden(entity) ? entity.getEyeHeight(Pose.STANDING) : entity.getEyeHeight();
+  }
 }

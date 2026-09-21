@@ -10,8 +10,14 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Timer.class)
 public abstract class SpeedTimerMixin {
-   @Redirect(method = "advanceGameTime", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/floats/FloatUnaryOperator;apply(F)F"))
-   private float ellice$speedMspt(FloatUnaryOperator provider, float base) {
-      return provider.apply(base) / TimerStateController.combine(SpeedActivateService.timerMultiplier());
-   }
+  @Redirect(
+      method = "advanceGameTime",
+      at =
+          @At(
+              value = "INVOKE",
+              target = "Lit/unimi/dsi/fastutil/floats/FloatUnaryOperator;apply(F)F"))
+  private float ellice$speedMspt(FloatUnaryOperator provider, float base) {
+    return provider.apply(base)
+        / TimerStateController.combine(SpeedActivateService.timerMultiplier());
+  }
 }

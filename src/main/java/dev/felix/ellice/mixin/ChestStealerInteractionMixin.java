@@ -14,15 +14,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MultiPlayerGameMode.class)
 public abstract class ChestStealerInteractionMixin {
-   @Inject(method = "useItemOn", at = @At("RETURN"))
-   private void ellice$rememberStorageUse(
-      LocalPlayer player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir
-   ) {
-      if (CoreIsInitializedHandler.isReady()) {
-         CoreIsInitializedHandler.get()
-            .modules()
-            .get(ImplRememberInteractionService.class)
-            .ifPresent(module -> module.rememberInteraction(hit, ((InteractionResult)cir.getReturnValue()).consumesAction()));
-      }
-   }
+  @Inject(method = "useItemOn", at = @At("RETURN"))
+  private void ellice$rememberStorageUse(
+      LocalPlayer player,
+      InteractionHand hand,
+      BlockHitResult hit,
+      CallbackInfoReturnable<InteractionResult> cir) {
+    if (CoreIsInitializedHandler.isReady()) {
+      CoreIsInitializedHandler.get()
+          .modules()
+          .get(ImplRememberInteractionService.class)
+          .ifPresent(
+              module ->
+                  module.rememberInteraction(
+                      hit, ((InteractionResult) cir.getReturnValue()).consumesAction()));
+    }
+  }
 }

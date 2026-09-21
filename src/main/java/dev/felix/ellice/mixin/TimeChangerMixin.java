@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientClockManager.class)
 public abstract class TimeChangerMixin {
-   @Inject(method = "getTotalTicks", at = @At("RETURN"), cancellable = true)
-   private void ellice$time(Holder<WorldClock> clock, CallbackInfoReturnable<Long> ci) {
-      if (clock.is(WorldClocks.OVERWORLD)) {
-         ci.setReturnValue(ImplTimeOfDayService.displayedTime((Long)ci.getReturnValue()));
-      }
-   }
+  @Inject(method = "getTotalTicks", at = @At("RETURN"), cancellable = true)
+  private void ellice$time(Holder<WorldClock> clock, CallbackInfoReturnable<Long> ci) {
+    if (clock.is(WorldClocks.OVERWORLD)) {
+      ci.setReturnValue(ImplTimeOfDayService.displayedTime((Long) ci.getReturnValue()));
+    }
+  }
 }

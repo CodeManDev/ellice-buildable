@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public abstract class NoHurtCamMixin {
-   @Inject(method = "bobHurt", at = @At("HEAD"), cancellable = true)
-   private void ellice$noHurtCam(CallbackInfo ci) {
-      if (ImplIsActiveService.isActive()) {
-         ci.cancel();
-      }
-   }
+  @Inject(method = "bobHurt", at = @At("HEAD"), cancellable = true)
+  private void ellice$noHurtCam(CallbackInfo ci) {
+    if (ImplIsActiveService.isActive()) {
+      ci.cancel();
+    }
+  }
 }

@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public abstract class ScaffoldUseInputMixin {
-   @Inject(method = "startUseItem", at = @At("HEAD"), cancellable = true, require = 1)
-   private void ellice$bridgeBlockUse(CallbackInfo callback) {
-      if (CoreAutoSprintRequestedClient.scaffoldOwnsBlockUse()) {
-         callback.cancel();
-      }
-   }
+  @Inject(method = "startUseItem", at = @At("HEAD"), cancellable = true, require = 1)
+  private void ellice$bridgeBlockUse(CallbackInfo callback) {
+    if (CoreAutoSprintRequestedClient.scaffoldOwnsBlockUse()) {
+      callback.cancel();
+    }
+  }
 }

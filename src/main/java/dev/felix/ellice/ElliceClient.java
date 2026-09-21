@@ -13,34 +13,42 @@ import net.fabricmc.loader.api.FabricLoader;
 
 @ElliceKeep
 public final class ElliceClient implements ClientModInitializer {
-   public void onInitializeClient() {
-      try {
-         LicenseIsLicensedService.BootResult gate = LicenseIsLicensedService.evaluateAtBoot(FabricLoader.getInstance().getGameDir(), CoreIsInitializedHandler.VERSION);
-         if (!gate.licensed()) {
-            CoreIsInitializedHandler.LOGGER.error("ellice license denied: {}", gate.reason());
-            FatalIsTrippedService.trip(new IllegalStateException(gate.reason()), FatalCaptureService.Kind.LICENSE);
-            return;
-         }
-
-         CoreIsInitializedHandler.initialize();
-         LicenseIsLicensedService.beginSession(CoreIsInitializedHandler.get().bus(), FabricLoader.getInstance().getGameDir(), CoreIsInitializedHandler.VERSION);
-      } catch (Throwable t) {
-         FatalIsTrippedService.trip(t, FatalCaptureService.Kind.STARTUP);
+  public void onInitializeClient() {
+    try {
+      LicenseIsLicensedService.BootResult gate =
+          LicenseIsLicensedService.evaluateAtBoot(
+              FabricLoader.getInstance().getGameDir(), CoreIsInitializedHandler.VERSION);
+      if (!gate.licensed()) {
+        CoreIsInitializedHandler.LOGGER.error("ellice license denied: {}", gate.reason());
+        FatalIsTrippedService.trip(
+            new IllegalStateException(gate.reason()), FatalCaptureService.Kind.LICENSE);
+        return;
       }
 
-      try {
-         CompatInitializeService.initialize();
-      } catch (Throwable t) {
-         CoreIsInitializedHandler.LOGGER.warn("Terrain map QA failed to start", t);
-      }
+      CoreIsInitializedHandler.initialize();
+      LicenseIsLicensedService.beginSession(
+          CoreIsInitializedHandler.get().bus(),
+          FabricLoader.getInstance().getGameDir(),
+          CoreIsInitializedHandler.VERSION);
+    } catch (Throwable t) {
+      FatalIsTrippedService.trip(t, FatalCaptureService.Kind.STARTUP);
+    }
 
-      ClientLifecycleEvents.CLIENT_STOPPING.register((ClientStopping)client -> {
-         if (CoreIsInitializedHandler.isInitialized()) {
-            try {
-               CoreIsInitializedHandler.get().shutdown();
-            } catch (Throwable exception) {
-            }
-         }
-      });
-   }
+    try {
+      CompatInitializeService.initialize();
+    } catch (Throwable t) {
+      CoreIsInitializedHandler.LOGGER.warn("Terrain map QA failed to start", t);
+    }
+
+    ClientLifecycleEvents.CLIENT_STOPPING.register(
+        (ClientStopping)
+            client -> {
+              if (CoreIsInitializedHandler.isInitialized()) {
+                try {
+                  CoreIsInitializedHandler.get().shutdown();
+                } catch (Throwable exception) {
+                }
+              }
+            });
+  }
 }

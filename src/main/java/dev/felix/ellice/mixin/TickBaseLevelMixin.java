@@ -10,16 +10,16 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ClientLevel.class)
 public abstract class TickBaseLevelMixin {
-   @WrapMethod(method = "tickNonPassenger")
-   private void ellice$schedulePlayerTick(Entity entity, Operation<Void> original) {
-      boolean local = entity == Minecraft.getInstance().player;
-      if (local && CompatEnableService.beforeTick()) {
-         entity.setOldPosAndRot();
-      } else {
-         original.call(new Object[]{entity});
-         if (local && entity == Minecraft.getInstance().player) {
-            CompatEnableService.afterTick();
-         }
+  @WrapMethod(method = "tickNonPassenger")
+  private void ellice$schedulePlayerTick(Entity entity, Operation<Void> original) {
+    boolean local = entity == Minecraft.getInstance().player;
+    if (local && CompatEnableService.beforeTick()) {
+      entity.setOldPosAndRot();
+    } else {
+      original.call(new Object[] {entity});
+      if (local && entity == Minecraft.getInstance().player) {
+        CompatEnableService.afterTick();
       }
-   }
+    }
+  }
 }

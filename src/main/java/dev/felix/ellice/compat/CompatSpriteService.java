@@ -7,16 +7,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public final class CompatSpriteService {
-   private CompatSpriteService() {
-   }
+  private CompatSpriteService() {}
 
-   public static TextureUvRegion sprite(InventoryRoleData.Role role) {
-      try {
-         if (Minecraft.getInstance() == null) {
-            return null;
-         }
+  public static TextureUvRegion sprite(InventoryRoleData.Role role) {
+    try {
+      if (Minecraft.getInstance() == null) {
+        return null;
+      }
 
-         Item item = switch (role) {
+      Item item =
+          switch (role) {
             case LOCKED -> Items.BARRIER;
             case SWORD -> Items.DIAMOND_SWORD;
             case PICKAXE, SILK_TOUCH, FORTUNE -> Items.DIAMOND_PICKAXE;
@@ -31,10 +31,10 @@ public final class CompatSpriteService {
             case SHIELD -> Items.SHIELD;
             case UTILITY -> Items.WATER_BUCKET;
             case TOTEM -> Items.TOTEM_OF_UNDYING;
-         };
-         return CompatAdapterService.itemSprite(new ItemStack(item));
-      } catch (RuntimeException | LinkageError runtimeExceptionLinkageError) {
-         return null;
-      }
-   }
+          };
+      return CompatAdapterService.itemSprite(new ItemStack(item));
+    } catch (RuntimeException | LinkageError runtimeExceptionLinkageError) {
+      return null;
+    }
+  }
 }

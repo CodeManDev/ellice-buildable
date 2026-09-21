@@ -10,16 +10,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractClientPlayer.class)
 public abstract class ScaffoldFovMixin {
-   @Redirect(
+  @Redirect(
       method = "getFieldOfViewModifier",
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/player/AbstractClientPlayer;getAttributeValue(Lnet/minecraft/core/Holder;)D"
-      ),
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/client/player/AbstractClientPlayer;getAttributeValue(Lnet/minecraft/core/Holder;)D"),
       require = 1,
-      expect = 1
-   )
-   private double ellice$stableScaffoldFov(AbstractClientPlayer player, Holder<Attribute> attribute) {
-      return CoreAutoSprintRequestedClient.scaffoldFovSpeed(player, attribute);
-   }
+      expect = 1)
+  private double ellice$stableScaffoldFov(
+      AbstractClientPlayer player, Holder<Attribute> attribute) {
+    return CoreAutoSprintRequestedClient.scaffoldFovSpeed(player, attribute);
+  }
 }
