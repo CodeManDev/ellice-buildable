@@ -13,7 +13,6 @@
         "TickMixin",
         "TickBaseLevelMixin",
         "CombatCorrectionMixin",
-        "VelocityExplosionMixin",
         "VelocityPushMixin",
         "VelocityBlockPushMixin",
         "SpeedPlayerMixin",
